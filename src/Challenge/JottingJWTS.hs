@@ -12,10 +12,8 @@ import           Data.Aeson
 import qualified Data.ByteString.Lazy.Char8                as LBS
 import           Data.Default                              (def)
 import           Data.IORef
-import           Data.Time
-import           Data.Time.Clock.POSIX
 import qualified Hackattic.Config                          as Config
-import           Hackattic.Network
+import           Hackattic.Common
 import qualified Jose.Jws                                  as Jws
 import           Network.Wai
 import           Network.Wai.Handler.Warp
@@ -90,9 +88,6 @@ handler secret ioref jwt = join $ liftIO $ do
 
 app :: ByteString -> IORef [Text] -> Application
 app secret ioref = serve (Proxy :: Proxy API) (handler secret ioref)
-
-getUnixTime :: IO Int
-getUnixTime = ceiling . utcTimeToPOSIXSeconds <$> getCurrentTime
 
 main :: IO ()
 main = do

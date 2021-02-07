@@ -13,7 +13,7 @@ import           Control.Monad
 import           Data.Aeson
 import qualified Data.ByteString.Lazy.Char8 as LBS
 import qualified Data.Text                  as Text
-import           Hackattic.Network
+import           Hackattic.Common
 import           Protolude
 import           Text.InterpolatedString.QM
 import           Text.Regex.PCRE

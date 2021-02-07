@@ -21,25 +21,22 @@ extra-source-files:
 description: Please see the README on GitHub at <https://github.com/githubuser/hackattic#readme>
 
 dependencies:
-  # - servant-auth
   - aeson
-  - dhall
   - base >= 4.7 && < 5
   - base64-bytestring
   - binary
   - bytestring
   - containers
   - data-default
+  - dhall
+  - extra
   - http-media
   - jose-jwt
-  - process
   - protolude
   - qm-interpolated-string
   - regex-pcre
-  - regex-tdfa
   - req
   - servant
-  - servant-auth-server
   - servant-server
   - text
   - time
@@ -47,6 +44,8 @@ dependencies:
   - wai-extra
   - wai-logger
   - warp
+  - websockets
+  - wuss
   - zlib
 
 default-extensions: NoImplicitPrelude

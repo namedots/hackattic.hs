@@ -1,15 +1,19 @@
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE OverloadedStrings #-}
-module Hackattic.Network
+module Hackattic.Common
   ( submit
   , fetch
   , unsafebase64decode
+  , getUnixTime
+  , getUnixTimeMs
   ) where
 
 import           Data.Aeson
 import qualified Data.ByteString.Base64 as B64
+import           Data.Time
+import           Data.Time.Clock.POSIX
+import qualified Hackattic.Config       as Config
 import           Network.HTTP.Req
-import qualified Hackattic.Config as Config
 import           Protolude
 import qualified Protolude.Conv         as PartialConv
 
@@ -21,9 +25,10 @@ fetch problem = runReq defaultHttpConfig $ do
   let url = https "hackattic.com" /: "challenges" /: problem /: "problem"
   responseBody <$> req GET url NoReqBody jsonResponse ("access_token" =: token)
 
-submit :: ToJSON a => Text -> a -> IO ()
+submit :: (ToJSON a, Show a) => Text -> a -> IO ()
 submit problem jsonable = runReq defaultHttpConfig $ do
   let url = https "hackattic.com" /: "challenges" /: problem /: "solve"
+  putText $ "submitting: " <> show jsonable
   res <-
     req POST url (ReqBodyJson jsonable) bsResponse
     $  ("access_token" =: token)
@@ -39,3 +44,9 @@ unsafebase64decode
 unsafebase64decode s = case B64.decode (PartialConv.toS s) of
   Right bs  -> pure (PartialConv.toS bs)
   Left  err -> print err >> exitFailure
+
+getUnixTime :: IO Int
+getUnixTime = (`div` 1000) <$> getUnixTime
+
+getUnixTimeMs :: IO Int
+getUnixTimeMs = ceiling . (* 1000) . utcTimeToPOSIXSeconds <$> getCurrentTime

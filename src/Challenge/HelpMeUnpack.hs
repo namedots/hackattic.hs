@@ -10,7 +10,7 @@ import           Control.Monad
 import           Data.Aeson
 import           Data.Binary
 import qualified Data.Binary.Get     as Get
-import           Hackattic.Network
+import           Hackattic.Common
 import           Protolude
 
 newtype Input
