@@ -103,7 +103,6 @@ main = do
   host      <- Config.getConfig <&> Config.host
   _threadId <- forkIO $ do
     threadDelay 100000
-    putText "submitting app url"
     submit "jotting_jwts" (Solution ("http://" <> host))
   putText "starting server.."
   let appl = app (toUtf8 (jwt_secret prob)) ioref

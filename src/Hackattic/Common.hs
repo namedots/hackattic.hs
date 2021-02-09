@@ -46,7 +46,7 @@ unsafebase64decode s = case B64.decode (PartialConv.toS s) of
   Left  err -> print err >> exitFailure
 
 getUnixTime :: IO Int
-getUnixTime = (`div` 1000) <$> getUnixTime
+getUnixTime = (`div` 1000) <$> getUnixTimeMs
 
 getUnixTimeMs :: IO Int
 getUnixTimeMs = ceiling . (* 1000) . utcTimeToPOSIXSeconds <$> getCurrentTime

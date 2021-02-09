@@ -48,7 +48,9 @@ dependencies:
   - wuss
   - zlib
 
-default-extensions: NoImplicitPrelude
+default-extensions:
+  - NoImplicitPrelude
+  - ImportQualifiedPost
 
 library:
   source-dirs: src
